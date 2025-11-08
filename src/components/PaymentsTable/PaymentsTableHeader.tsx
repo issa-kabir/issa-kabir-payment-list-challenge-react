@@ -1,8 +1,7 @@
-import React from "react"
 import { I18N } from "../../constants/i18n"
 import { TableHeaderWrapper, TableHeaderRow, TableHeader } from "../components"
 
-export const PaymentTableHeader = () => {
+export const PaymentsTableHeader = () => {
     return (
         <TableHeaderWrapper>
             <TableHeaderRow>

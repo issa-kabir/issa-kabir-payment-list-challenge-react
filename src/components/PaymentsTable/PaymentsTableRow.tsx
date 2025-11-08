@@ -15,7 +15,7 @@ const formatDate = (dateString: string): string => {
     return formattedDate;
 };
 
-export const PaymentTableRow = (data: PaymentSearchResponse) => {
+export const PaymentsTableRow = (data: PaymentSearchResponse) => {
     return (
         <TableBodyWrapper>
             {data.payments.map((payment: Payment) => (

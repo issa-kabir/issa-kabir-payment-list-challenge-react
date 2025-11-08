@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { API_URL } from "../constants";
 import { I18N } from "../constants/i18n";
+import { useQuery } from "@tanstack/react-query";
 import { Container, Table, TableWrapper, Title } from './components'
 import { PaymentSearchResponse, PaymentsFilters } from "../types/payment";
-import { PaymentTableHeader } from "./PaymentTable/PaymentTableHeader";
-import { PaymentEmptyTableRow } from "./PaymentTable/PaymentEmptyTableRow";
-import { PaymentTableRow } from "./PaymentTable/PaymentTableRow";
-import { API_URL } from "../constants";
-import { PaginationTableRow } from "./PaginationRow/PaginationTableRow";
 import { PaymentsLoading } from "./PaymentsLoading";
 import { PaymentsError } from "./PaymentsError";
 import { PaymentsFilter } from "./PaymentsFilter";
+import { PaymentsTableHeader } from "./PaymentsTable/PaymentsTableHeader";
+import { PaymentsEmptyTableRow } from "./PaymentsTable/PaymentsEmptyTableRow";
+import { PaymentsTableRow } from "./PaymentsTable/PaymentsTableRow";
+import { PaginationTableRow } from "./PaginationRow/PaginationTableRow";
 
 const fetchPayments = async (filters: PaymentsFilters): Promise<PaymentSearchResponse> => {
   const params = new URLSearchParams();
@@ -97,11 +97,11 @@ export const PaymentsPage = () => {
     {!isLoading && !errorMessage && data && (
       <TableWrapper>
         <Table>
-          <PaymentTableHeader />
+          <PaymentsTableHeader />
           {data.payments.length === 0 ? (
-            <PaymentEmptyTableRow />
+            <PaymentsEmptyTableRow />
           ) : (
-            <PaymentTableRow {...data} />
+            <PaymentsTableRow {...data} />
           )}
         </Table>
         <PaginationTableRow

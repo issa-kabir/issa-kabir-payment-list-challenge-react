@@ -1,6 +1,5 @@
-import React from "react"
-import { CURRENCIES } from "../constants"
 import { I18N } from "../constants/i18n"
+import { CURRENCIES } from "../constants"
 import { FlexRow, FilterRow, SearchInput, Select, SearchButton, ClearButton } from "./components"
 
 interface PaymentsFilterProps {

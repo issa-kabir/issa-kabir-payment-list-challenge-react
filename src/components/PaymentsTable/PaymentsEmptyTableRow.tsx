@@ -1,7 +1,7 @@
 import { I18N } from '../../constants/i18n';
 import { TableRow, TableCell, EmptyBox, TableBodyWrapper } from '../components';
 
-export const PaymentEmptyTableRow = () => {
+export const PaymentsEmptyTableRow = () => {
     return (
         <TableBodyWrapper>
             <TableRow>
