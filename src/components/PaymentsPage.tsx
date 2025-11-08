@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { I18N } from "../constants/i18n";
-import { ClearButton, Container, ErrorBox, FilterRow, FlexRow, SearchButton, SearchInput, Select, Spinner, Table, TableWrapper, Title } from './components'
+import { Container, Table, TableWrapper, Title } from './components'
 import { PaymentSearchResponse, PaymentsFilters } from "../types/payment";
 import { PaymentTableHeader } from "./PaymentTable/PaymentTableHeader";
 import { PaymentEmptyTableRow } from "./PaymentTable/PaymentEmptyTableRow";
 import { PaymentTableRow } from "./PaymentTable/PaymentTableRow";
-import { API_URL, CURRENCIES } from "../constants";
+import { API_URL } from "../constants";
 import { PaginationTableRow } from "./PaginationRow/PaginationTableRow";
+import { PaymentsLoading } from "./PaymentsLoading";
+import { PaymentsError } from "./PaymentsError";
+import { PaymentsFilter } from "./PaymentsFilter";
 
 const fetchPayments = async (filters: PaymentsFilters): Promise<PaymentSearchResponse> => {
   const params = new URLSearchParams();
@@ -37,10 +40,9 @@ export const PaymentsPage = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['payments', filters],
     queryFn: () => fetchPayments(filters),
-    placeholderData: keepPreviousData
   });
 
-  let errorMessage = '';
+  let errorMessage: string = '';
   if (error) {
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 404) {
@@ -58,7 +60,7 @@ export const PaymentsPage = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [currencyInput, setCurrencyInput] = useState<string>("");
 
-  const hasActiveFilters = filters.search || filters.currency;
+  const hasActiveFilters: boolean = Boolean(filters.search || filters.currency);
 
   const handleSearch = () => {
     setFilters({
@@ -78,55 +80,24 @@ export const PaymentsPage = () => {
       currency: '',
       page: 1
     });
-  }
-
+  };
 
   return <Container>
     <Title>{I18N.PAGE_TITLE}</Title>
 
-    <FlexRow>
-      <FilterRow>
-        <SearchInput
-          type="text"
-          placeholder={I18N.SEARCH_PLACEHOLDER}
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          aria-label={I18N.SEARCH_LABEL}
-        />
-        <Select
-          value={currencyInput}
-          onChange={(e) => setCurrencyInput(e.target.value)}
-          aria-label={I18N.CURRENCY_FILTER_LABEL}
-        >
-          <option value="">{I18N.CURRENCIES_OPTION}</option>
-          {CURRENCIES.map((currency) => (
-            <option key={currency} value={currency}>
-              {currency}
-            </option>
-          ))}
-        </Select>
-        <SearchButton onClick={handleSearch}>
-          {I18N.SEARCH_BUTTON}
-        </SearchButton>
-      </FilterRow>
-      {hasActiveFilters && (
-        <ClearButton onClick={handleClearFilters}>
-          {I18N.CLEAR_FILTERS}
-        </ClearButton>
-      )}
-    </FlexRow>
+    <PaymentsFilter
+      searchInput={searchInput}
+      setSearchInput={setSearchInput}
+      currencyInput={currencyInput}
+      setCurrencyInput={setCurrencyInput}
+      handleSearch={handleSearch}
+      handleClearFilters={handleClearFilters}
+      hasActiveFilters={hasActiveFilters}
+    />
 
-    {isLoading && (
-      <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
-        <Spinner />
-      </div>
-    )}
+    {isLoading && (<PaymentsLoading />)}
 
-    {errorMessage && (
-      <ErrorBox>
-        {errorMessage}
-      </ErrorBox>
-    )}
+    {errorMessage && (<PaymentsError errorMessage={errorMessage} />)}
 
     {!isLoading && !errorMessage && data && (
       <TableWrapper>
