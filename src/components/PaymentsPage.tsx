@@ -21,11 +21,6 @@ const fetchPayments = async (filters: PaymentsFilters): Promise<PaymentSearchRes
   params.append('pageSize', filters.pageSize.toString());
 
   const response = await axios.get(`${API_URL}?${params.toString()}`);
-  if (response.status !== 200) {
-    // Add log here
-    throw new Error("Network response was not ok");
-  }
-  // Add log here
   return response.data;
 };
 
