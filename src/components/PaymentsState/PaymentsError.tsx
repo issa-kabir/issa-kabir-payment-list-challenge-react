@@ -1,4 +1,4 @@
-import { ErrorBox } from "./components";
+import { ErrorBox } from "../components";
 
 export const PaymentsError = ({ errorMessage }: { errorMessage: string }) => {
     return (
