@@ -4,6 +4,12 @@ import { API_URL } from "../constants";
 import { PaymentSearchResponse, PaymentsFilters } from "../types/payment";
 import { I18N } from "../constants/i18n";
 
+interface FetchDataResult {
+    data?: PaymentSearchResponse;
+    isLoading: boolean;
+    errorMessage: string;
+}
+
 const fetchPayments = async (filters: PaymentsFilters): Promise<PaymentSearchResponse> => {
     const params = new URLSearchParams();
     if (filters.search) params.append('search', filters.search);
@@ -15,7 +21,7 @@ const fetchPayments = async (filters: PaymentsFilters): Promise<PaymentSearchRes
     return response.data;
 };
 
-export const FetchData = (filters: PaymentsFilters) => {
+export const FetchData = (filters: PaymentsFilters): FetchDataResult => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['payments', filters],
         queryFn: () => fetchPayments(filters),

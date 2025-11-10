@@ -54,19 +54,36 @@ export const handlers = [
       );
     }
 
+    if (search === "empty") {
+      return HttpResponse.json({
+        payments: [],
+        total: 0,
+        page: 1,
+        pageSize: 5,
+      });
+    }
+
+    if (search === "no_payments") {
+      return HttpResponse.json({
+        total: 0,
+        page: 1,
+        pageSize: 5,
+      });
+    }
+
     let filteredPayments: any[] = [];
 
     // Filter payments based on search criteria and filters
     filteredPayments = allPayments.filter((pay) => {
       // Search filter
-      const matchesSearch = !search || 
+      const matchesSearch = !search ||
         pay.id.toLowerCase().includes(search) ||
         pay.status?.toLowerCase().includes(search) ||
         pay.currency?.toLowerCase().includes(search);
-      
+
       // Currency filter
       const matchesCurrency = !currency || pay.currency === currency;
-      
+
       return matchesSearch && matchesCurrency;
     });
 

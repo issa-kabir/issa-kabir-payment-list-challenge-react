@@ -61,7 +61,7 @@ export const PaymentsPage = () => {
 
       {isLoading && (<PaymentsLoading />)}
       {errorMessage && (<PaymentsError errorMessage={errorMessage} />)}
-      {!isLoading && !errorMessage && data && (
+      {!isLoading && !errorMessage && data && data.payments && (
         <TableWrapper>
           <Table>
             <PaymentsTableHeader />

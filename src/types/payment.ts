@@ -6,7 +6,7 @@ export interface Payment {
     currency: string;
     status: "completed" | "pending" | "failed" | "refunded";
     date: string;
-    description: string;
+    description?: string;
     clientId?: string;
 }
 
