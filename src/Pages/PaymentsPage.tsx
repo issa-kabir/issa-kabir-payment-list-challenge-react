@@ -2,14 +2,14 @@ import { useState } from "react";
 import { I18N } from "../constants/i18n";
 import { FetchData } from "../hooks/FetchData";
 import { PaymentsFilters } from "../types/payment";
-import { PaymentsLoading } from "./PaymentsState/PaymentsLoading";
-import { PaymentsError } from "./PaymentsState/PaymentsError";
-import { PaymentsFilter } from "./PaymentsFilter";
-import { Container, Table, TableWrapper, Title } from './components'
-import { PaymentsTableHeader } from "./PaymentsTable/PaymentsTableHeader";
-import { PaymentsEmptyTableRow } from "./PaymentsTable/PaymentsEmptyTableRow";
-import { PaymentsTableRow } from "./PaymentsTable/PaymentsTableRow";
-import { PaginationTableRow } from "./PaginationRow/PaginationTableRow";
+import { PaymentsLoading } from "../components/PaymentsState/PaymentsLoading";
+import { PaymentsError } from "../components/PaymentsState/PaymentsError";
+import { PaymentsFilter } from "../components/PaymentsFilter/PaymentsFilter";
+import { Container, Table, TableWrapper, Title } from '../components/components'
+import { PaymentsTableHeader } from "../components/PaymentsTable/PaymentsTableHeader";
+import { PaymentsEmptyTableRow } from "../components/PaymentsTable/PaymentsEmptyTableRow";
+import { PaymentsTableRow } from "../components/PaymentsTable/PaymentsTableRow";
+import { PaginationTableRow } from "../components/PaginationRow/PaginationTableRow";
 
 export const PaymentsPage = () => {
   const [filters, setFilters] = useState<PaymentsFilters>({

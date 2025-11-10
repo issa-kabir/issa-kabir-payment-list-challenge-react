@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import "@testing-library/jest-dom";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { I18N } from '../constants/i18n';
-import { CURRENCIES } from '../constants';
+import { I18N } from '../../constants/i18n';
+import { CURRENCIES } from '../../constants';
 import { PaymentsFilter } from './PaymentsFilter';
 
 describe('PaymentsFilter', () => {
